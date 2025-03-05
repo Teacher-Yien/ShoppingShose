@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bayon&family=Hanuman:wght@100;300;400;700;900&display=swap');
+/* $size:10px;
+$fontHanuman:"Hanuman";
+$fontBayon:"Bayon"; */
+*{
+	font-family: "Hanuman";
+}
+::placeholder{
+	font-family: "Hanuman";
+}
+
+
+
+
+.menuCategory::-webkit-scrollbar {  
+	width: 2px; /* Set the width of the scrollbar */ 
+	height: 4px;
+}  
+
+.menuCategory::-webkit-scrollbar-track {  
+	background: #fff; /* Background of the scrollbar track */  
+}  
+
+.menuCategory::-webkit-scrollbar-thumb {  
+	background: #b3ccff; /* Color of the scrollbar thumb */  
+	border-radius: 10px; /* Rounded corners for the thumb */  
+}  
+

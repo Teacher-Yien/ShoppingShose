@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdn.tailwindcss.com"></script>
+	<title>Main Web</title>
+</head>
+<body class=" p-5">
+			<main class=" h-auto  md:w-[80%] w-[100%] m-auto  bg-[#dbf1f9] rounded-md relative ">
+						<header class=" grid lg:grid-cols-3 grid-cols-2 p-5">
+								<nav class=" order-1"><i class="fa-solid fa-chart-simple text-3xl cursor-pointer text-gray-400"></i></nav>
+								<div class="profile lg:order-3 order-2 "><img class="float-right w-[60px] h-[60px] rounded-full object-cover" src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt=""></div>
+								<div class="relative md:order-2 order-3 rounded-full bg-white flex items-center justify-between shadow-md md:w-full lg:col-span-1 md:col-span-2   p-2 w-[300px] mt-3" > 
+									<input class="pl-4 pr-2 py-2 rounded-full w-full outline-none" type="text" placeholder="Find shoes" style="border: none; font-size: 16px; color: #333;">
+									<div class="bg-teal-400   rounded-full h-[40px] w-[50px] flex items-center justify-center mr-4">
+										<i class="fa-solid fa-magnifying-glass text-white"></i>
+									</div>
+								</div>
+						</header>
+						<menu class=" lg:w-[40%] md:w-[70%] w-[90%]  bg-white  shadow-md p-5 rounded-lg fixed bottom-[50px] lg:left-[30%] md:left-[15%]">
+									<ul class=" flex justify-between ">
+										<li><a href="#" class="text-2xl text-gray-400 hover:text-[#0cd8e1] focus:text-black"><i class="fa-solid fa-house-chimney"></i></a></li>
+										<li><a href="#"><i class="fa-solid fa-flag text-2xl text-gray-400 hover:text-[#0cd8e1]"></i></a></li>
+										<li>
+											<a id="heart" href="#" class=" relative text-2xl text-gray-400 hover:text-[#0cd8e1] focus:text-red-600" >
+												<i class="fa-solid  fa-heart "></i>
+												<span id="countheart" class="  text-[15px] absolute top-[-10px] right-[-2px] text-gray-600 font-bold">0</span>
+											</a>
+										</li>
+										<li><a href="#"><i class="fa-solid fa-cart-shopping text-2xl text-gray-400 hover:text-[#0cd8e1]"></i></a></li>
+										<li><a href="#"><i class="fa-solid fa-user text-2xl text-gray-400 hover:text-[#0cd8e1]"></i></a></li>
+									</ul>
+						</menu>
+						<section class="  p-5   ">
+								<h1 class=" text-blue-950 text-3xl">ប្រភេទទំនិញ</h1>
+								<ul class=" flex mt-5 overflow-x-auto menuCategory ">
+									<li class=" m-3"><a class="  text-gray-500 text-[20px] hover:text-gray-900 focus:text-gray-900"  id="Nike" href="#">Nike</a></li>
+									<li class=" m-3"><a class="  text-gray-500 text-[20px] hover:text-gray-900 focus:text-gray-900"  id="Adidas" href="#">Adidas</a></li>
+									<li class=" m-3"><a class="  text-gray-500 text-[20px] hover:text-gray-900 focus:text-gray-900"  id="Puma" href="#">Puma</a></li>
+									<li class=" m-3"><a class="  text-gray-500 text-[20px] hover:text-gray-900 focus:text-gray-900"  id="Balenciaga" href="#">Balenciaga</a></li>
+									<li class=" m-3"><a class="  text-gray-500 text-[20px] hover:text-gray-900 focus:text-gray-900"  id="Converse" href="#">Converse</a></li>
+								</ul>
+								<section id="listProducts" class=" h-auto mt-5 grid xl:lg:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3  ">
+										<!-- list product -->
+								</section>
+						</section>
+			</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="script.js"></script>
+</html>

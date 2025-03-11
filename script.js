@@ -117,11 +117,31 @@ function displayProductsDetails() {
 
 		if (selectedProduct) {  
 			result += `  
+				<img class=" h-[70%] w-[100%] object-cover" src="${selectedProduct.image || '/image/default.png'}" alt="${selectedProduct.name}">  
 				<div class="product-detail">  
-					<h2>${selectedProduct.name}</h2>  
-					<img src="${selectedProduct.image || '/image/default.png'}" alt="${selectedProduct.name}">  
-					<p>Price: $${selectedProduct.price.toFixed(2)}</p>  
-					<p>Type: ${selectedProduct.type}</p>  
+					<h2 class=" text-3xl">${selectedProduct.name}</h2>  
+					<p class=" text-[18px] text-gray-600">Price: $${selectedProduct.price.toFixed(2)}</p>  
+					<p class=" text-[18px] text-gray-600">Type: ${selectedProduct.type}</p>
+					<p class=" line-clamp-3 mt-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores provident reiciendis alias voluptatum consequatur, perspiciatis, sapiente minus at aspernatur facilis veritatis, laboriosam quaerat sunt deserunt inventore vel odit culpa.</p>
+					<div class="flex justify-around w-[90%] bg-[#3fdff77e]  p-3  rounded-full mt-3">  
+								<div class="flex flex-col">  
+												<label class="text-white" for="size">Size</label>   
+												<select id="size" class="mt-1 w-[45px]  rounded ">  
+																<option value="43">43</option>  
+																<option value="44">44</option>  
+																<option value="45">45</option>  
+												</select>  
+								</div>  
+								<div class="flex flex-col">  
+												<label class="text-white" for="color">Color</label>  
+												<input type="color" id="color" class="mt-1 w-[30px] h-[30px]  rounded-full" />  
+								</div>  
+								<div class="flex flex-col">  
+												<label class="text-white" for="qty">QTY</label>  
+												<input type="number" id="qty" value="1" min="1" class="mt-1 w-[40px]  rounded bg-white" />  
+								</div>  
+				</div>  
+					<button class=" mt-5 w-[90%] bg-[#3FE0F7] p-3 text-white rounded-full">Add to Bag 	&emsp;<i class="fa-solid fa-cart-arrow-down"></i></button>
 				</div>  
 			`;  
 		} else {  

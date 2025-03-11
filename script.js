@@ -1,5 +1,4 @@
-
-let AllProducts = JSON.parse(localStorage.getItem('ProductsShose')) || [  
+let AllProducts = JSON.parse(localStorage.getItem('ShopIT')) || [  
 	{ id: 1, name: 'Nike Vaporfly 3 Road Racing Shoes', type: 'Nike', price: 260.00, image: "/images/Nike1.png", isFavorite: false },  
 	{ id: 2, name: 'Nike Air Force 1 07', type: 'Nike', price: 130.00, image: "/images/Nike2.png", isFavorite: false },  
 	{ id: 3, name: 'Nike Air Max Plus Drift', type: 'Nike', price: 180.90, image: "/images/Nike3.png", isFavorite: false },  
@@ -17,7 +16,7 @@ let AllProducts = JSON.parse(localStorage.getItem('ProductsShose')) || [
 	{ id: 15, name: 'Adifom IIInfinity Mules', type: 'Adidas', price: 59.99, image: "/images/Adidas6.avif", isFavorite: false },  
 	{ id: 16, name: 'MEN iS RUNNER GRADIENT SNEAKER IN BEIGE', type: 'Balenciaga', price: 150.90, image: "/images/Balenciaga1.avif", isFavorite: false },  
 	{ id: 17, name: 'Women is Avenue 50mm Pump in Red', type: 'Balenciaga', price: 133.99, image: "/images/Balenciaga2.avif", isFavorite: false },  
-	{ id: 18, name: 'Converse x Wonka CHUCK 70 “Oompa Loompa”', type: 'Converse', price: 399, image: "/images/Converse1.webp", isFavorite: false },  
+	{ id: 18, name: 'Converse x Wonka CHUCK 70 "Oompa Loompa"', type: 'Converse', price: 399, image: "/images/Converse1.webp", isFavorite: false },  
 	{ id: 19, name: 'Weapon', type: 'Converse', price: 455.90, image: "/images/Converse2.webp", isFavorite: false },  
 	{ id: 20, name: 'One Star Pro', type: 'Converse', price: 566, image: "/images/Converse3.webp", isFavorite: false }, 
 ];  
@@ -26,18 +25,21 @@ let AllProducts = JSON.parse(localStorage.getItem('ProductsShose')) || [
 // JSON.stringify property CONVERT to STRING
 // 2. Save AllProducts to localStorage whenever it changes  
 function saveProductsToLocalStorage() {  
-	localStorage.setItem('Products', JSON.stringify(AllProducts));  
+	localStorage.setItem('ShopIT', JSON.stringify(AllProducts));  
 }
 
 
+// Check if elements exist before using them
 var listProducts = document.getElementById('listProducts');
-var countheart = document.getElementById('countheart'); // Assuming you have this element  
+var countheart = document.getElementById('countheart');
 
-//  count products  Hearts
-function  updateFavoriteCount(){
-	const favoriteCount = AllProducts.filter(allProduct => allProduct.isFavorite).length;
-	localStorage.setItem('Favorite',JSON.stringify(favoriteCount));
-	countheart.innerText = favoriteCount;
+// Update the favorite count only if the element exists
+function updateFavoriteCount(){
+    const favoriteCount = AllProducts.filter(allProduct => allProduct.isFavorite).length;
+    localStorage.setItem('Favorite', JSON.stringify(favoriteCount));
+    if (countheart) {
+        countheart.innerText = favoriteCount;
+    }
 }
 
 function toggleFarite(id){
@@ -50,70 +52,117 @@ function toggleFarite(id){
 	}
 }
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function(){
 	try {  
-		const storedFavorite = JSON.parse(localStorage.getItem('Favorite')) || 0; // Default to 0 if null  
-		countheart.innerText = storedFavorite;  
-} catch (error) {  
-		console.error("Error parsing Favorite from localStorage:", error);  
-		countheart.innerText = 0; // Set to a default value  
-		localStorage.removeItem('Favorite'); // Clear potentially corrupted data  
+					const storedFavorite = JSON.parse(localStorage.getItem('Favorite')) || 0;
+					if (countheart) {
+									countheart.innerText = storedFavorite;
+					}
+	} catch (error) {  
+					console.error("Error parsing Favorite from localStorage:", error);
+					if (countheart) {
+									countheart.innerText = 0;
+					}
+					localStorage.removeItem('Favorite');
+	}
+
+	updateFavoriteCount();
+	
+	// Only try to display products if the element exists
+	if (listProducts) {
+					displayProducts(AllProducts);
+	}
+	
+	// Only call displayProductsDetails if we're on the product details page
+	if (document.querySelector('.listProductDetails')) {
+					displayProductsDetails();
+	}
+});
+
+// Only add the event listener if the element exists
+if (listProducts) {
+	listProducts.addEventListener('click', function(event) {
+					if (event.target.closest('.card')) {
+									console.log("Card was clicked!");
+									const card = event.target.closest('.card');
+									const productId = card.dataset.productId;
+									localStorage.setItem('selectedProductId', productId);
+									location.replace('productDetails.html');
+					}
+	});
 }
 
-updateFavoriteCount(); // Ensure the count is correct based on the initial AllProducts  
-displayProducts(AllProducts); // Initial display 
-})
-
-// add to Detail Products list
 // Event delegation for card clicks:  
 document.getElementById('listProducts').addEventListener('click', function(event) {  
 	if (event.target.closest('.card')) {  
-					console.log("Card was clicked!");  
-					// const card = event.target.closest('.card');  
-					// const productId = card.dataset.productId;  
-					// localStorage.setItem('selectedProductId', productId);  
-					location.replace('productDetails.html');  
+		console.log("Card was clicked!");  
+		const card = event.target.closest('.card');  
+		const productId = card.dataset.productId;  
+		localStorage.setItem('selectedProductId', productId);  
+		location.replace('productDetails.html');  
 	}  
-}); 
+});  
 
-// document.getElementById('backIndex').addEventListener('click', function() {  
+// Function to display product details
+function displayProductsDetails() {
+	let result = '';  
 	
-// 					console.log("Details was clicked!");  
-// 					location.replace('index.html');  
+	// Retrieve the selected product ID from localStorage  
+	const selectedProductId = localStorage.getItem('selectedProductId');
 	
-// }); 
+	// Get the products directly from AllProducts instead of a separate storage item
+	if (selectedProductId) {  
+		// Find the selected product in AllProducts
+		const selectedProduct = AllProducts.find(e => e.id === parseInt(selectedProductId));  
 
+		if (selectedProduct) {  
+			result += `  
+				<div class="product-detail">  
+					<h2>${selectedProduct.name}</h2>  
+					<img src="${selectedProduct.image || '/image/default.png'}" alt="${selectedProduct.name}">  
+					<p>Price: $${selectedProduct.price.toFixed(2)}</p>  
+					<p>Type: ${selectedProduct.type}</p>  
+				</div>  
+			`;  
+		} else {  
+			result = '<p>Product not found.</p>';  
+		}  
+		
+		document.querySelector('.listProductDetails').innerHTML = result;  
+	} else {  
+		console.log("No product ID found in local storage.");  
+	}  
+}  
 
 function displayProducts(products) {  
 	let result = '';  
 	products.forEach((product) => { 
-					const heartClass = product.isFavorite 
-									? 'fa-solid fa-heart text-red-600 cursor-pointer ' 
-									: 'fa-regular fa-heart cursor-pointer';
+		const heartClass = product.isFavorite 
+			? 'fa-solid fa-heart text-red-600 cursor-pointer ' 
+			: 'fa-regular fa-heart cursor-pointer';
 
-					result += `  
-					<div class="card shadow-lg rounded-[25px] bg-white p-5 cursor-pointer">  
-									<div class="setHeaderProduct flex justify-between">  
-													<p class="product-price text-[18px] font-bold"><span class=" text-[#03E6F6]">$</span> ${product.price.toFixed(2)}</p>  
-													<i onclick="toggleFarite(${product.id})" class="${heartClass} text-[18px]"></i>  
-									</div>  
-									<img class="rounded-lg object-cover m-auto w-[150px] md:h-[150px] h-[100px]" src="${product.image || '/image/default.png'}" alt="">  
-									<p class="line-clamp-2 text-center mt-1">${product.name || 'No Name Available'}</p>  
-					</div>`;  
+		result += `  
+		<div class="shadow-lg rounded-[25px] bg-white p-5 cursor-pointer card" data-product-id="${product.id}">
+			<div class="setHeaderProduct flex justify-between">
+				<p class="product-price text-[18px] font-bold"><span class="text-[#03E6F6]">$</span> ${product.price.toFixed(2)}</p>  
+				<i onclick="toggleFarite(${product.id})" class="${heartClass} text-[18px]"></i>  
+			</div>  
+			<img class="rounded-lg object-cover m-auto w-[150px] md:h-[150px] h-[100px]" src="${product.image || '/image/default.png'}" alt="">  
+			<p class="line-clamp-2 text-center mt-1">${product.name || 'No Name Available'}</p>  
+		</div>`;  
 	});  
 	listProducts.innerHTML = result;  
 }
 
-
 // Display all products initially  
-displayProducts(AllProducts);  
+if(listProducts) {
+	displayProducts(AllProducts);  
+}
 
 // Event handlers for navigation  
 document.getElementById('Nike').onclick = function() {  
 	displayProducts(AllProducts.filter(e => e.type === "Nike"));  
 }
-
-// === check   vlue  dataType
 
 document.getElementById('Adidas').onclick = function() {  
 	displayProducts(AllProducts.filter(e => e.type === "Adidas"));  
@@ -130,6 +179,7 @@ document.getElementById('Balenciaga').onclick = function() {
 document.getElementById('Converse').onclick = function() {  
 	displayProducts(AllProducts.filter(e => e.type === "Converse"));  
 }  
+
 document.getElementById('heart').onclick = function() {  
 	displayProducts(AllProducts.filter(e => e.isFavorite === true));   
-}  
+}
